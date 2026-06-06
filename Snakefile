@@ -7,10 +7,16 @@ configfile: "config/config.yaml"
 
 DATA = config['data']
 
+PLOTS = expand(
+    "{plots_dir}/{file}.png",
+    plots_dir = get_path(config["output"], 'plots'),
+    file = ['meth_matrix.bed', 'VST_data.csv']
+)
+
 rule all:
     input:
-       f"{get_path(config["data"], 'raw')}/meth_matrix.bed",
-       f"{get_path(config["output"], 'features')}/all_features_counts.tsv"
+       f"{get_path(config["output"], 'features')}/all_features_counts.tsv",
+       PLOTS
         
 
 RULES_DIR = get_path(config['workflow'], "rules")

@@ -2,6 +2,9 @@ from workflow.lib.utils import get_path
 
 RAW_DIR = get_path(config["data"], 'raw')
 FEATURE_DIR = get_path(config["output"], 'features')
+PLOTS_DIR = get_path(config["output"], 'plots')
+
+SCRIPTS = get_path(config['workflow'], 'scripts')
 
 HAS_HEADER = {
     'meth_matrix.bed': True,
@@ -52,3 +55,35 @@ rule merge_features:
             cat {input}
         }} > {output} 2> {log}
         """
+
+SCRIPT_TO_PLOT = {
+    'meth_matrix.bed': "plot_violin_meth.r",
+    'VST_data.csv': "polt_violin_vst.r"
+}
+
+INCLUDE_COLUMNS = {
+    'meth_matrix.bed': "N1, N12, T1, T2",
+    'VST_data.csv': "GSM4505877,GSM4505883,GSM4505887,GSM4505893"
+}
+rule plot_violin:
+    input:
+        f"{RAW_DIR}/{{file}}"
+    output:
+        f"{PLOTS_DIR}/{{file}}.png"
+    log:
+        f"logs/calculate_desciptive/plot_violin/{{file}}.log"
+    threads: 1
+    wildcard_constraints:
+        file="meth_matrix.bed|VST_data.csv"
+    conda:
+        f"../envs/calculate_desciptive.yml"
+    params:
+        script = lambda wc: f"{SCRIPTS}/{SCRIPT_TO_PLOT[wc.file]}",
+        chromosome = 'chr10',
+        inclde_columns = lambda wc: INCLUDE_COLUMNS[wc.file]
+    shell:
+        """
+        Rscript {params.script} {input} {output} {params.chromosome} {params.inclde_columns} > {log} 2>&1
+        """
+    
+

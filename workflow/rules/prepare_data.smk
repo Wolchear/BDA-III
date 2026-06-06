@@ -20,7 +20,7 @@ rule gunzip:
         f"../envs/prepare_data.yml"
     shell:
         """
-        pigz -dc -p {threads} {input} > {output}
+        pigz -dc -p {threads} {input} > {output} 2> {log}
         """
 
 
@@ -34,7 +34,7 @@ rule get_meth_matix:
     output:
         f"{RAW_DIR}/meth_matrix.bed"
     params:
-        names=" ".join(SAMPLES["file"].tolist()),
+        names=" ".join(SAMPLES["id"].tolist()),
         filler="0" 
     threads: 1
     log:

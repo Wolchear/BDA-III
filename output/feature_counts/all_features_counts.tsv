@@ -1,0 +1,6 @@
+feature	count
+meth_matrix.bed	18471771
+H3K27me_peaks.bed	9648
+H3K27ac_peaks.bed	112823
+DEG_All_Genes.csv	20952
+VST_data.csv	20952

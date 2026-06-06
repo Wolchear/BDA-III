@@ -15,4 +15,8 @@ workflow:
     lib: "lib"
     envs: 'envs'
 
+output:
+  base_root: "output"
+  dirs:
+    features: 'feature_counts'
 

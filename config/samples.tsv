@@ -1,0 +1,5 @@
+geo	id	condition	file
+GSM4505857	N2	normal	GSM4505857_N2_CpG_methylation.bed
+GSM4505863	N12	normal	GSM4505863_N12_CpG_methylation.bed
+GSM4505867	T2	cancer	GSM4505867_T2_CpG_methylation.bed
+GSM4505873	T12	cancer	GSM4505873_T12_CpG_methylation.bed

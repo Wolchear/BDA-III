@@ -1,0 +1,11 @@
+name: BDA-III
+
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+
+dependencies:
+  - snakemake>=9.13.7
+  - pandas=2.3
+  - pigz=2.8

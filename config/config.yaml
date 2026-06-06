@@ -1,0 +1,18 @@
+max_threads: 4
+
+data:
+  base_root: "data"
+  dirs:
+    raw: "raw"
+    references: "references"
+    trimmed: 'trimmed'
+
+workflow:
+  base_root: "workflow"
+  dirs:
+    rules: "rules"
+    scripts: "scripts"
+    lib: "lib"
+    envs: 'envs'
+
+

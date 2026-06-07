@@ -4,7 +4,7 @@ import pandas as pd
 RAW_DIR = get_path(config["data"], 'raw')
 
 SAMPLES = pd.read_csv("config/samples.tsv", sep="\t").set_index("geo")
-
+SCRIPTS = get_path(config['workflow'], 'scripts')
 
 rule gunzip:
     input:
@@ -49,4 +49,22 @@ rule get_meth_matix:
             -filler {params.filler} \
             -i {input} \
             > {output} 2> {log}
+        """
+
+
+rule get_deg_bam:
+    input:
+         f"{RAW_DIR}/DEG_All_Genes.csv"
+    output:
+        f"{RAW_DIR}/DEG_All_Genes.colored.sorted.bam"
+    threads: 1
+    log:
+        "logs/prepare_data/get_deg_bam.log"
+    conda:
+        "../envs/convert_deg.yml"
+    params:
+        script = f"{SCRIPTS}/convert_deg.r"
+    shell:
+        r"""
+        Rscript {params.script} {input} {output}
         """

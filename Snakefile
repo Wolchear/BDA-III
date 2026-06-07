@@ -16,7 +16,8 @@ PLOTS = expand(
 rule all:
     input:
        f"{get_path(config["output"], 'features')}/all_features_counts.tsv",
-       PLOTS
+       PLOTS,
+       f"{get_path(config["data"], 'raw')}/DEG_All_Genes.colored.sorted.bam"
         
 
 RULES_DIR = get_path(config['workflow'], "rules")
